@@ -3,9 +3,11 @@ package com.bestapp.todolist.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,27 +29,36 @@ public class TodolistController {
     return "taskform";
   }
 
+  @GetMapping("/tasklist")
+  public String getInventory(Model model) {
+    model.addAttribute("items", items);
+    return "tasklist";
+  }
+
   @PostMapping("/submitItem")
   public String handleSubmit(TodoItem item, RedirectAttributes redirectAttributes) {
     int itemIndex = getItemIndex(item.getId());
     String status = Constants.ADD_SUCCESS_STATUS;
     if (itemIndex == Constants.ID_NOTFOUND) {
       items.add(item);
-      System.out.println("Item added: " + items.get(items.indexOf(item)));
-    } else if (within5Days(item.getDueDate(), items.get(itemIndex).getDueDate())) {
+      // System.out.println("Item added: " + items.get(items.indexOf(item)));
+    } 
+    // else if (notPast(item.getDueDate())) {
+      else if (itemIndex != Constants.ID_NOTFOUND) {
       items.set(itemIndex, item);
       status = Constants.UPDATE_SUCCESS_STATUS;
-      System.out.println("Item updated: " + items.get(items.indexOf(item)));
+      // System.out.println("Item updated: " + items.get(items.indexOf(item)));
     } else {
       status = Constants.FAILED_STATUS;
-      System.out.println(status);
+      // System.out.println(status);
     }
     redirectAttributes.addFlashAttribute("status", status);
-    return "redirect:/inventory";
+    return "redirect:/tasklist";
   }
 
-  private boolean within5Days(Date dateOfCompletion, Date dateOfCompletion2) {
-    return false;
+  @DeleteMapping("/deleteItem")
+  public void deleteItem(TodoItem item) {
+
   }
 
   public int getItemIndex(String id) {
@@ -56,5 +67,11 @@ public class TodolistController {
     }
     return Constants.ID_NOTFOUND;
   }
+
+  // public boolean notPast(Date date) {
+  //   Date currentDate = new Date(System.currentTimeMillis());
+  //   long diff = Math.abs(date.getTime() - currentDate.getTime());
+  //   return (int) (TimeUnit.MILLISECONDS.toDays(diff)) >= 0;
+  // }
 
 }

@@ -12,7 +12,7 @@ public class TodoItem {
   private String category;
   private String title;
   private String description;
-  @DateTimeFormat(pattern = "dd-MM-yyyy")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date dueDate;
 
   public TodoItem() {

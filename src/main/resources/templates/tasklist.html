@@ -5,9 +5,52 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task List</title>
+  <link th:href="@{/tasklist-stylesheet.css}" rel="stylesheet">
 </head>
 
 <body>
+  <div class="topnav">
+    <a th:href="@{/}" >Task Form</a>
+    <a th:href="@{/tasklist}" class="active">Task List</a>
+  </div>
+
+  <div th:switch="${status}" class="alertBox">
+    <div class="alert success" th:case="'Add Success'">
+      <strong>You have added the task successfully!</strong>
+    </div>
+    <div class="alert success" th:case="'Update Success'">
+      <strong>You have updated the task successfully!</strong>
+    </div>
+    <div class="alert" th:case="'Failed'">
+      <strong>You failed to add the task.</strong>
+    </div>
+  </div>
   
+  <div class="container">
+    <table>
+      <tr class="head">
+        <th>Category</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Target Date</th>
+        <th> </th>
+        <th> </th>
+      </tr>
+      <tr th:each=="item: ${items}">
+        <td th:text="*{item.category}"></th>
+        <td th:text="*{item.title}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${#dates.format(item.dueDate, 'dd/MM/YYYY')}"></td>
+        <td>
+          <a role="button" style="color:white; background-color: #263238" class="table-button" 
+          th:href="@{/ (id = ${item.id})}">Update</a>
+        </td>
+        <td>
+          <a role="button" style="color:red; background-color: #263238" class="table-button" 
+          th:href="@{/ (id = ${item.id})}">Delete</a>
+        </td>
+      </tr>
+    </table>
+  </div>
 </body>
 </html>
