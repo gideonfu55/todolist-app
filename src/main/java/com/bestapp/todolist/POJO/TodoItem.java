@@ -6,19 +6,18 @@ import java.util.UUID;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Item {
+public class TodoItem {
 
   private String id;
   private String category;
   private String title;
   private String description;
   @DateTimeFormat(pattern = "dd-MM-yyyy")
-  private Date dateOfCompletion;
+  private Date dueDate;
 
-  public Item() {
+  public TodoItem() {
     this.id = UUID.randomUUID().toString();
   }
-
 
   public String getId() {
     return this.id;
@@ -52,12 +51,12 @@ public class Item {
     this.description = description;
   }
 
-  public Date getDateOfCompletion() {
-    return this.dateOfCompletion;
+  public Date getDueDate() {
+    return this.dueDate;
   }
 
-  public void setDateOfCompletion(Date dateOfCompletion) {
-    this.dateOfCompletion = dateOfCompletion;
+  public void setDateOfCompletion(Date dueDate) {
+    this.dueDate = dueDate;
   }
 
   public String formatDate(Date date) {
@@ -72,7 +71,7 @@ public class Item {
       ", category='" + getCategory() + "'" +
       ", title='" + getTitle() + "'" +
       ", description='" + getDescription() + "'" +
-      ", dateOfCompletion='" + formatDate(getDateOfCompletion()) + "'" +
+      ", dateOfCompletion='" + formatDate(getDueDate()) + "'" +
       "}";
   }
 

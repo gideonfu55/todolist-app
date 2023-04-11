@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Form</title>
+  <link th:href="@{/taskform-stylesheet.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -17,14 +18,17 @@
     <h2>New TODO Item</h2>
     <form method="post" th:object="${item}" th:action="@{/submitItem}">
       <select class="select" th:field="*{category}">
-        <option class="categoryOption">Choose Category</option>
+        <option class="categoryOption" value="">Choose Category</option>
         <option th:each="category : ${categories}" th:text="${category}" th:value="${category}"></option>
       </select>
       <input type="hidden" th:field="*{id}">
-      <input type="text" th:field="*{title}">
-      <input type="text" th:field="*{description}">
-      <input type="date" th:field="*{dateOfCompletion}">
-      <input type="submit" value="Submit Item">
+      <label>Title</label>
+      <input type="text" th:field="*{title}" required>
+      <label>Description</label>
+      <textarea th:field="*{description}"></textarea>
+      <label>Target Date</label>
+      <input type="date" th:field="*{dueDate}" style="color: black">
+      <button type="submit" value="Submit Item">Add Task</button>
     </form>
   </div>
 </body>
