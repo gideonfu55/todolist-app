@@ -53,8 +53,10 @@
           th:href="@{/(id = ${item.id})}">Update</a>
         </td>
         <td>
-          <a role="button" style="color:red; background-color: #263238" class="table-button" 
-          th:href="@{/(id = ${item.id})}">Delete</a>
+          <form method="post" th:action="@{/delete}">
+            <input type="hidden" th:name="id" th:value="${item.id}" />
+            <button class="table-button" type="submit" style="color:red; background-color: #263238">Delete</button>
+          </form>
         </td>
       </tr>
     </table>

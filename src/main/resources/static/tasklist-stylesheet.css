@@ -68,9 +68,8 @@ table tbody td[type=currency]:before {
   float: left;
   border: solid 1px gray;
   font: #EDF7FF;
-  width: 75%;
   background-color: green;
-  font-size: 12px;
+  font-size: 13.5px;
   text-decoration: none;
   padding: 7.5px;
 }

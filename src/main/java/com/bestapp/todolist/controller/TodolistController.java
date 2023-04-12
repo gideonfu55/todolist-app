@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,10 +56,13 @@ public class TodolistController {
     return "redirect:/tasklist";
   }
 
-  // @DeleteMapping("/{id}")
-  // public void deleteItem(TodoItem item) {
-    
-  // }
+  @PostMapping("/delete")
+  public String deleteItem(@RequestParam("id") String id, RedirectAttributes redirectAttributes) {
+    String status = Constants.DELETE_SUCCESS;
+    items.remove(items.get(getItemIndex(id)));
+    redirectAttributes.addFlashAttribute("status", status);
+    return "redirect:/tasklist";
+  }
 
   public int getItemIndex(String id) {
     for (TodoItem item : items) {
