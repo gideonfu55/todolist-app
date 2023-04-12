@@ -1,6 +1,9 @@
 package com.bestapp.todolist.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -37,18 +40,16 @@ public class TodolistController {
   public String handleSubmit(TodoItem item, RedirectAttributes redirectAttributes) {
     int itemIndex = getItemIndex(item.getId());
     String status = Constants.ADD_SUCCESS_STATUS;
-    if (itemIndex == Constants.ID_NOTFOUND) {
+    if (itemIndex == Constants.ID_NOTFOUND && isNotPast(item.getDueDate())) {
       items.add(item);
       System.out.println("Item added: " + items.get(items.indexOf(item)));
     } 
-    // else if (notPast(item.getDueDate()))
-      else if (itemIndex != Constants.ID_NOTFOUND) {
+    else if (isNotPast(item.getDueDate())) {
       items.set(itemIndex, item);
       status = Constants.UPDATE_SUCCESS_STATUS;
       System.out.println("Item updated: " + items.get(items.indexOf(item)));
     } else {
       status = Constants.FAILED_STATUS;
-      // System.out.println(status);
     }
     redirectAttributes.addFlashAttribute("status", status);
     return "redirect:/tasklist";
@@ -66,10 +67,13 @@ public class TodolistController {
     return Constants.ID_NOTFOUND;
   }
 
-  // public boolean notPast(Date date) {
-  //   Date currentDate = new Date(System.currentTimeMillis());
-  //   long diff = Math.abs(date.getTime() - currentDate.getTime());
-  //   return (int) (TimeUnit.MILLISECONDS.toDays(diff)) >= 0;
-  // }
+  public boolean isNotPast(Date date) {
+    // Convert Date to LocalDate
+    LocalDate inputDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    // Get the current date
+    LocalDate currentDate = LocalDate.now();
+    // Check if inputDate is on or after currentDate
+    return !inputDate.isBefore(currentDate);
+  }
 
 }
