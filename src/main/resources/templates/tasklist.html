@@ -24,6 +24,9 @@
     <div class="alert" th:case="'Failed'">
       <strong>You failed to submit the task.</strong>
     </div>
+    <div class="alert success" th:case="'Delete Success'">
+      <strong>You have deleted the task successfully.</strong>
+    </div>
   </div>
   
   <div class="container">
@@ -33,6 +36,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Target Date</th>
+        <th>Completed</th>
         <th> </th>
         <th> </th>
       </tr>
@@ -41,6 +45,9 @@
         <td th:text="*{item.title}"></td>
         <td th:text="${item.description}"></td>
         <td th:text="${#dates.format(item.dueDate, 'dd-MMM-YYYY')}"></td>
+        <td>
+          <input type="checkbox">
+        </td>
         <td>
           <a role="button" style="color:white; background-color: #263238" class="table-button" 
           th:href="@{/(id = ${item.id})}">Update</a>

@@ -31,7 +31,7 @@ table .head {
 table .head th {
   background-color: green;
   border: 0.5px solid black;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: normal;
   text-align: center;
   color: white;
@@ -52,7 +52,7 @@ table tbody td {
   border-left: 1px solid black;
   border-bottom: 1px solid black;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 table tbody td[type=currency], td[type=date] {
@@ -68,17 +68,11 @@ table tbody td[type=currency]:before {
   float: left;
   border: solid 1px gray;
   font: #EDF7FF;
-  width: 80%;
+  width: 75%;
   background-color: green;
-  font-size: 16px;
+  font-size: 12px;
   text-decoration: none;
-  padding-top: .5em;
-  padding-bottom: .5em;
-  font-family: sans-serif;
-  margin-right: 0.5em;
-  margin-left: 0.5em;
-  padding-left: .5em;
-  padding-right: .5em;
+  padding: 7.5px;
 }
 
 .table-button:hover {

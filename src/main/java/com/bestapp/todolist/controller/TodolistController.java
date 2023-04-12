@@ -55,10 +55,10 @@ public class TodolistController {
     return "redirect:/tasklist";
   }
 
-  @DeleteMapping("/deleteItem")
-  public void deleteItem(TodoItem item) {
-
-  }
+  // @DeleteMapping("/{id}")
+  // public void deleteItem(TodoItem item) {
+    
+  // }
 
   public int getItemIndex(String id) {
     for (TodoItem item : items) {
