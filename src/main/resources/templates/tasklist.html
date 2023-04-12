@@ -40,14 +40,14 @@
         <td th:text="*{item.category}"></th>
         <td th:text="*{item.title}"></td>
         <td th:text="${item.description}"></td>
-        <td th:text="${#dates.format(item.dueDate, 'dd/MM/YYYY')}"></td>
+        <td th:text="${#dates.format(item.dueDate, 'dd-MMM-YYYY')}"></td>
         <td>
           <a role="button" style="color:white; background-color: #263238" class="table-button" 
-          th:href="@{/ (id = ${item.id})}">Update</a>
+          th:href="@{/(id = ${item.id})}">Update</a>
         </td>
         <td>
           <a role="button" style="color:red; background-color: #263238" class="table-button" 
-          th:href="@{/ (id = ${item.id})}">Delete</a>
+          th:href="@{/(id = ${item.id})}">Delete</a>
         </td>
       </tr>
     </table>

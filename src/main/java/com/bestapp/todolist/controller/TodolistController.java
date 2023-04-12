@@ -1,9 +1,7 @@
 package com.bestapp.todolist.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,13 +39,13 @@ public class TodolistController {
     String status = Constants.ADD_SUCCESS_STATUS;
     if (itemIndex == Constants.ID_NOTFOUND) {
       items.add(item);
-      // System.out.println("Item added: " + items.get(items.indexOf(item)));
+      System.out.println("Item added: " + items.get(items.indexOf(item)));
     } 
-    // else if (notPast(item.getDueDate())) {
+    // else if (notPast(item.getDueDate()))
       else if (itemIndex != Constants.ID_NOTFOUND) {
       items.set(itemIndex, item);
       status = Constants.UPDATE_SUCCESS_STATUS;
-      // System.out.println("Item updated: " + items.get(items.indexOf(item)));
+      System.out.println("Item updated: " + items.get(items.indexOf(item)));
     } else {
       status = Constants.FAILED_STATUS;
       // System.out.println(status);

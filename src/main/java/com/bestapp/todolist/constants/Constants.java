@@ -7,8 +7,7 @@ public class Constants {
   // Constant for return integer on Item Id check:
   public static final int ID_NOTFOUND = -1000;
 
-  // Constant for submission success/failure status before redirecting to
-  // Inventory page:
+  // Constant for submission success/failure status before redirecting to Inventory page:
   public static final String ADD_SUCCESS_STATUS = "Add Success";
   public static final String UPDATE_SUCCESS_STATUS = "Update Success";
   public static final String FAILED_STATUS = "Failed";
