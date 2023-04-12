@@ -30,8 +30,7 @@ public class TodoItem {
   @Column(name = "description")
   private String description;
 
-  @Column(name = "dueDate", nullable = false)
-  @NonNull
+  @Column(name = "dueDate")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date dueDate;
 

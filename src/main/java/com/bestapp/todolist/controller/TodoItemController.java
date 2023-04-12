@@ -49,11 +49,11 @@ public class TodoItemController {
 
     if (itemIndex == Constants.ID_NOTFOUND && isNotPast(item.getDueDate())) {
       todoItemRepository.save(item);
-      System.out.println("Item added: " + todoItemRepository.findAll().indexOf(item));
+      // System.out.println("Item added: " + todoItemRepository.findById(Long.parseLong(item.getId())));
     } else if (isNotPast(item.getDueDate())) {
       todoItemRepository.save(item);
       status = Constants.UPDATE_SUCCESS_STATUS;
-      System.out.println("Item updated: " + todoItemRepository.findAll().indexOf(item));
+      // System.out.println("Item updated: " + todoItemRepository.findById(Long.parseLong(item.getId())));
     } else {
       status = Constants.FAILED_STATUS;
     }
