@@ -59,10 +59,10 @@ public class TodoItem {
     this.dueDate = dueDate;
   }
 
-  // public String formatDate(Date date) {
-  //   String formattedDate = new SimpleDateFormat("dd-MMM-yyyy").format(date);
-  //   return formattedDate;
-  // }
+  public String formatDate(Date date) {
+    String formattedDate = new SimpleDateFormat("dd-MMM-yyyy").format(date);
+    return formattedDate;
+  }
 
   @Override
   public String toString() {
@@ -71,7 +71,7 @@ public class TodoItem {
       ", category='" + getCategory() + "'" +
       ", title='" + getTitle() + "'" +
       ", description='" + getDescription() + "'" +
-      ", dateOfCompletion='" + getDueDate() + "'" +
+      ", dueDate='" + getDueDate() + "'" +
       "}";
   }
 
