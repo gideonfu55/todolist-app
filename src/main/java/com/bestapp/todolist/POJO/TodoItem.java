@@ -6,12 +6,32 @@ import java.util.UUID;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.NonNull;
+
+@Entity
+@Table(name = "todo_items")
 public class TodoItem {
 
+  @Id
+  @Column(name = "id")
   private String id;
+
+  @Column(name = "category")
   private String category;
+
+  @Column(name = "title", nullable = false)
+  @NonNull
   private String title;
+
+  @Column(name = "description")
   private String description;
+
+  @Column(name = "dueDate", nullable = false)
+  @NonNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date dueDate;
 
