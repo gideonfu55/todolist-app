@@ -4,28 +4,28 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task List</title>
-  <link th:href="@{/tasklist-stylesheet.css}" rel="stylesheet">
+  <title>TODO List</title>
+  <link th:href="@{/todolist-stylesheet.css}" rel="stylesheet">
 </head>
 
 <body>
   <div class="topnav">
-    <a th:href="@{/}" >Task Form</a>
-    <a th:href="@{/tasklist}" class="active">Task List</a>
+    <a th:href="@{/}" >Add TODO</a>
+    <a th:href="@{/todolist}" class="active">TODO List</a>
   </div>
 
   <div th:switch="${status}" class="alertBox">
     <div class="alert success" th:case="'Add Success'">
-      <strong>You have added the task successfully!</strong>
+      <strong>You have added the TODO item successfully!</strong>
     </div>
     <div class="alert success" th:case="'Update Success'">
-      <strong>You have updated the task successfully!</strong>
+      <strong>You have updated the TODO item successfully!</strong>
     </div>
     <div class="alert" th:case="'Failed'">
-      <strong>You failed to submit the task.</strong>
+      <strong>You failed to submit the TODO item.</strong>
     </div>
     <div class="alert success" th:case="'Delete Success'">
-      <strong>You have deleted the task successfully.</strong>
+      <strong>You have deleted the TODO item successfully.</strong>
     </div>
   </div>
   

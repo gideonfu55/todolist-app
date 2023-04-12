@@ -19,7 +19,7 @@ import com.bestapp.todolist.POJO.TodoItem;
 import com.bestapp.todolist.constants.Constants;
 
 @Controller
-public class TodolistController {
+public class TodoItemController {
 
   List<TodoItem> items = new ArrayList<>();
   
@@ -28,13 +28,13 @@ public class TodolistController {
     int itemIndex = getItemIndex(id);
     model.addAttribute("item", itemIndex == Constants.ID_NOTFOUND ? new TodoItem() : items.get(itemIndex));
     model.addAttribute("categories", Constants.CATEGORIES);
-    return "taskform";
+    return "todoform";
   }
 
-  @GetMapping("/tasklist")
+  @GetMapping("/todolist")
   public String getInventory(Model model) {
     model.addAttribute("items", items);
-    return "tasklist";
+    return "todolist";
   }
 
   @PostMapping("/submitItem")
@@ -53,7 +53,7 @@ public class TodolistController {
       status = Constants.FAILED_STATUS;
     }
     redirectAttributes.addFlashAttribute("status", status);
-    return "redirect:/tasklist";
+    return "redirect:/todolist";
   }
 
   @PostMapping("/delete")
@@ -61,7 +61,7 @@ public class TodolistController {
     String status = Constants.DELETE_SUCCESS;
     items.remove(items.get(getItemIndex(id)));
     redirectAttributes.addFlashAttribute("status", status);
-    return "redirect:/tasklist";
+    return "redirect:/todolist";
   }
 
   public int getItemIndex(String id) {

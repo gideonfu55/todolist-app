@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Task</title>
-  <link th:href="@{/taskform-stylesheet.css}" rel="stylesheet">
+  <title>Add TODO</title>
+  <link th:href="@{/todoform-stylesheet.css}" rel="stylesheet">
 </head>
 
 <body>
   <div class="topnav">
-    <a th:href="@{/}" class="active">Add Task</a>
-    <a th:href="@{/tasklist}">Task List</a>
+    <a th:href="@{/}" class="active">Add TODO</a>
+    <a th:href="@{/todolist}">TODO List</a>
   </div>
 
   <div class="container">
@@ -34,7 +34,7 @@
       <label>Target Date</label>
       <input type="date" th:field="*{dueDate}" style="color: black" required>
 
-      <button type="submit">Add Task</button>
+      <button type="submit">Add TODO Item</button>
 
     </form>
   </div>
