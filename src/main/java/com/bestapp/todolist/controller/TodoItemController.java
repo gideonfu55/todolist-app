@@ -5,7 +5,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,41 +17,47 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bestapp.todolist.POJO.TodoItem;
 import com.bestapp.todolist.constants.Constants;
+import com.bestapp.todolist.repository.TodoItemRepository;
 
 @Controller
 public class TodoItemController {
 
-  List<TodoItem> items = new ArrayList<>();
+  @Autowired
+  private TodoItemRepository todoItemRepository;
   
   @GetMapping("/")
   public String getForm(Model model, @RequestParam(required = false) String id) {
     int itemIndex = getItemIndex(id);
-    model.addAttribute("item", itemIndex == Constants.ID_NOTFOUND ? new TodoItem() : items.get(itemIndex));
+    model.addAttribute("item", itemIndex == Constants.ID_NOTFOUND ? new TodoItem() : todoItemRepository.findById(Long.parseLong(id)));
     model.addAttribute("categories", Constants.CATEGORIES);
     return "todoform";
   }
 
   @GetMapping("/todolist")
-  public String getInventory(Model model) {
+  public String getList(Model model) {
+    List<TodoItem> items = todoItemRepository.findAll();
     model.addAttribute("items", items);
     return "todolist";
   }
 
   @PostMapping("/submitItem")
   public String handleSubmit(TodoItem item, RedirectAttributes redirectAttributes) {
+
     int itemIndex = getItemIndex(item.getId());
+
     String status = Constants.ADD_SUCCESS_STATUS;
+
     if (itemIndex == Constants.ID_NOTFOUND && isNotPast(item.getDueDate())) {
-      items.add(item);
-      System.out.println("Item added: " + items.get(items.indexOf(item)));
-    } 
-    else if (isNotPast(item.getDueDate())) {
-      items.set(itemIndex, item);
+      todoItemRepository.save(item);
+      System.out.println("Item added: " + todoItemRepository.findAll().indexOf(item));
+    } else if (isNotPast(item.getDueDate())) {
+      todoItemRepository.save(item);
       status = Constants.UPDATE_SUCCESS_STATUS;
-      System.out.println("Item updated: " + items.get(items.indexOf(item)));
+      System.out.println("Item updated: " + todoItemRepository.findAll().indexOf(item));
     } else {
       status = Constants.FAILED_STATUS;
     }
+
     redirectAttributes.addFlashAttribute("status", status);
     return "redirect:/todolist";
   }
@@ -57,14 +65,14 @@ public class TodoItemController {
   @PostMapping("/delete")
   public String deleteItem(@RequestParam("id") String id, RedirectAttributes redirectAttributes) {
     String status = Constants.DELETE_SUCCESS;
-    items.remove(items.get(getItemIndex(id)));
+    todoItemRepository.deleteById(Long.parseLong(id));
     redirectAttributes.addFlashAttribute("status", status);
     return "redirect:/todolist";
   }
 
   public int getItemIndex(String id) {
-    for (TodoItem item : items) {
-      if (item.getId().equals(id)) return items.indexOf(item);
+    for (TodoItem item : todoItemRepository.findAll()) {
+      if (item.getId().equals(id)) return todoItemRepository.findAll().indexOf(item);
     }
     return Constants.ID_NOTFOUND;
   }
