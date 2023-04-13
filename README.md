@@ -6,4 +6,4 @@
 
 ## Required Updates
 
-Update CSS, and add feature - checking complete checkbox updates field of item (need to add 'completion' field to TodoItem). Lastly, to deploy.
+Update CSS for better UI and lastly, to deploy.
