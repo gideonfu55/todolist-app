@@ -9,16 +9,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "todo_items")
 public class TodoItem {
@@ -32,14 +30,19 @@ public class TodoItem {
   private String category;
 
   @Column(name = "title", nullable = false)
-  @NonNull
+  @NotNull
   private String title;
 
   @Column(name = "description")
   private String description;
 
-  @Column(name = "due_date")
+  @Column(name = "due_date", nullable = false)
+  @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date dueDate;
+
+  @Column(name = "completed", nullable = false)
+  @NotNull
+  private boolean completed;
 
 }

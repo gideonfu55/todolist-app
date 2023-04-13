@@ -9,4 +9,6 @@ public class Constants {
   public static final String UPDATE_SUCCESS_STATUS = "Update Success";
   public static final String FAILED_STATUS = "Failed";
   public static final String DELETE_SUCCESS = "Delete Success";
+  public static final String COMPLETION_SUCCESS = "Completion Success";
+  public static final String COMPLETION_REMOVED = "Completion Removed";
 }

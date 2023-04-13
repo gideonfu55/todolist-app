@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -56,6 +57,24 @@ public class TodoItemController {
     }
 
     redirectAttributes.addFlashAttribute("status", status);
+    return "redirect:/todolist";
+  }
+
+  @PostMapping("/markComplete")
+  public String handleItemComplete(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
+    TodoItem existingItem = todoItemService.getItem(id);
+    if (existingItem != null && !existingItem.isCompleted()) {
+      existingItem.setCompleted(true);
+      todoItemService.saveItem(existingItem);
+      redirectAttributes.addFlashAttribute("status", Constants.COMPLETION_SUCCESS);
+    } else if (existingItem != null && existingItem.isCompleted()) {
+      existingItem.setCompleted(false);
+      todoItemService.saveItem(existingItem);
+      redirectAttributes.addFlashAttribute("status", Constants.COMPLETION_REMOVED);
+    } else {
+      redirectAttributes.addFlashAttribute("status", Constants.FAILED_STATUS);
+    }
+
     return "redirect:/todolist";
   }
 
