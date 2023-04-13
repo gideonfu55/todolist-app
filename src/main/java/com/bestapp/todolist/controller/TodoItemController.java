@@ -2,7 +2,6 @@ package com.bestapp.todolist.controller;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,33 +26,34 @@ public class TodoItemController {
   
   @GetMapping("/")
   public String getForm(Model model, @RequestParam(required = false) String id) {
-    int itemIndex = getItemIndex(id);
-    model.addAttribute("item", itemIndex == Constants.ID_NOTFOUND ? new TodoItem() : todoItemRepository.findById(Long.parseLong(id)));
+
+    model.addAttribute("item", checkTodoItemPresent(id) == Constants.ID_NOTFOUND ? new TodoItem() : todoItemRepository.findById(Long.valueOf(id)));
     model.addAttribute("categories", Constants.CATEGORIES);
+
     return "todoform";
   }
 
   @GetMapping("/todolist")
   public String getList(Model model) {
+
     List<TodoItem> items = todoItemRepository.findAll();
     model.addAttribute("items", items);
+
     return "todolist";
   }
 
   @PostMapping("/submitItem")
   public String handleSubmit(TodoItem item, RedirectAttributes redirectAttributes) {
 
-    int itemIndex = getItemIndex(item.getId());
-
     String status = Constants.ADD_SUCCESS_STATUS;
 
-    if (itemIndex == Constants.ID_NOTFOUND && isNotPast(item.getDueDate())) {
+    if (checkTodoItemPresent(item.getId()) == Constants.ID_NOTFOUND && isNotPast(item.getDueDate())) {
       todoItemRepository.save(item);
-      // System.out.println("Item added: " + todoItemRepository.findById(Long.parseLong(item.getId())));
+      // System.out.println("Item added: " + todoItemRepository.findById(Long.valueOf(item.getId())));
     } else if (isNotPast(item.getDueDate())) {
       todoItemRepository.save(item);
       status = Constants.UPDATE_SUCCESS_STATUS;
-      // System.out.println("Item updated: " + todoItemRepository.findById(Long.parseLong(item.getId())));
+      // System.out.println("Item updated: " + todoItemRepository.findById(Long.valueOf(item.getId())));
     } else {
       status = Constants.FAILED_STATUS;
     }
@@ -65,16 +65,24 @@ public class TodoItemController {
   @PostMapping("/delete")
   public String deleteItem(@RequestParam("id") String id, RedirectAttributes redirectAttributes) {
     String status = Constants.DELETE_SUCCESS;
-    todoItemRepository.deleteById(Long.parseLong(id));
+    todoItemRepository.deleteById(Long.valueOf(id));
     redirectAttributes.addFlashAttribute("status", status);
     return "redirect:/todolist";
   }
 
-  public int getItemIndex(String id) {
-    for (TodoItem item : todoItemRepository.findAll()) {
-      if (item.getId().equals(id)) return todoItemRepository.findAll().indexOf(item);
-    }
-    return Constants.ID_NOTFOUND;
+  /**
+   * Method name: checkTodoItemPresent
+   * 
+   * @param id
+   * @return
+   * 
+   * - Checks if TodoItem is present in Repository based on id provided and return either true or false.
+   * 
+   */
+  public boolean checkTodoItemPresent(String id) {
+    Optional<TodoItem> existingItem = todoItemRepository.findById(Long.valueOf(id));
+    boolean itemIsPresent = existingItem.isPresent() ? true : Constants.ID_NOTFOUND;
+    return itemIsPresent;
   }
 
   public boolean isNotPast(Date date) {
