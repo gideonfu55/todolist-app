@@ -6,4 +6,4 @@
 
 ## Required Updates
 
-Update CSS for better UI and lastly, to deploy.
+Major code refactoring needed for removing repetition. Update CSS for better UI and lastly, to deploy.
