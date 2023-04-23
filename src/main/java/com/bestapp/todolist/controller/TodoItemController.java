@@ -66,7 +66,7 @@ public class TodoItemController {
       existingItem.setCompleted(true);
       todoItemService.saveItem(existingItem);
       redirectAttributes.addFlashAttribute("status", Constants.COMPLETION_SUCCESS);
-    } else if (existingItem != null && existingItem.isCompleted()) {
+    } else if (existingItem != null) {
       existingItem.setCompleted(false);
       todoItemService.saveItem(existingItem);
       redirectAttributes.addFlashAttribute("status", Constants.COMPLETION_REMOVED);

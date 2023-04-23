@@ -28,11 +28,11 @@ public class TodoItemService {
     return unwrapItem(item, id);
   }
 
-  public TodoItem saveItem(TodoItem item) {
+    public void saveItem(TodoItem item) {
     if (!isNotPast(item.getDueDate())) {
-      return null;
+      return;
     }
-    return todoItemRepository.save(item);
+    todoItemRepository.save(item);
   }
 
   public void deleteItem(Long id) {
@@ -40,7 +40,7 @@ public class TodoItemService {
   }
 
   public List<TodoItem> getItems() {
-    return (List<TodoItem>)todoItemRepository.findAll();
+    return todoItemRepository.findAll();
   }
 
   /**
