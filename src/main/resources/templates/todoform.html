@@ -14,29 +14,31 @@
     <a th:href="@{/todolist}">TODO List</a>
   </div>
 
-  <div class="container">
-    <h3>New TODO Item</h3>
-    <form method="post" th:object="${item}" th:action="@{/submitItem}">
+  <center>
+    <div class="container">
+      <h3>New TODO Item</h3>
+      <form method="post" th:object="${item}" th:action="@{/submitItem}">
 
-      <select class="select" th:field="*{category}">
-        <option class="categoryOption" value="">Choose Category</option>
-        <option th:each="category : ${categories}" th:text="${category}" th:value="${category}"></option>
-      </select>
+        <select class="select" th:field="*{category}">
+          <option class="categoryOption" value="">Choose Category</option>
+          <option th:each="category : ${categories}" th:text="${category}" th:value="${category}"></option>
+        </select>
 
-      <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{id}">
 
-      <label>Title</label>
-      <input type="text" th:field="*{title}" required>
+        <label>Title</label>
+        <input type="text" th:field="*{title}" required>
 
-      <label>Description</label>
-      <textarea th:field="*{description}"></textarea>
+        <label>Description</label>
+        <textarea th:field="*{description}"></textarea>
 
-      <label>Target Date</label>
-      <input type="date" th:field="*{dueDate}" style="color: black" required>
+        <label>Target Date</label>
+        <input type="date" th:field="*{dueDate}" style="color: black" required>
 
-      <button type="submit">Add or Update Item</button>
+        <button type="submit">Add or Update Item</button>
 
-    </form>
-  </div>
+      </form>
+    </div>
+  </center>
 </body>
 </html>
