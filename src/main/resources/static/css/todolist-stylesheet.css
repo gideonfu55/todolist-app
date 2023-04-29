@@ -26,7 +26,7 @@ table .head {
 }
 
 table .head th {
-  background-color: green;
+  background-color: rgb(0, 149, 255);
   border: 0.5px solid black;
   font-size: 15px;
   font-weight: normal;
@@ -90,7 +90,7 @@ table tbody td[type=currency]:before {
 }
   
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: cyan;
   color: black;
 }
 
