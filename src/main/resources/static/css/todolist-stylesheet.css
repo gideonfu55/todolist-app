@@ -3,21 +3,18 @@ body {
 }
 
 .container {
-  position: relative;
-  left: 50%;
-  top: 5%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  background-color: #263238;
+  display: flex;
+  justify-content: center;
+  background-color: #ddd;
 }
 
 table {
-  margin-top: 25px;
-  width: 100%;
+  background-color: gold;
+  width: 85%;
+  margin-top: 50px;
+  margin-bottom: 50px;
   border-spacing: 0;
-  position: absolute;
   text-align: center;
-  border-right: 1px solid black;
 }
 
 table .head {
@@ -49,8 +46,7 @@ table tbody {
 
 table tbody td {
   text-align: right;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  border: 1px solid black;
   text-align: center;
   font-size: 15px;
 }
@@ -101,11 +97,6 @@ table tbody td[type=currency]:before {
 .topnav a.active {
   background-color: green;
   color: white;
-}
-
-.alertBox {
-  margin-top: 1%;
-  margin-bottom: 15px;
 }
   
 .alert {

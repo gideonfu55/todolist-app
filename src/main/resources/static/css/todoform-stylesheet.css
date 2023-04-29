@@ -5,9 +5,8 @@ body {
 
 .container {
   background-color: #ddd;
-  width: 50%;
-  margin-top: 5em;
-  padding: 25px;
+  width: 100%;
+  padding: 25px 0;
 } 
 
 h2 {
@@ -45,12 +44,12 @@ input[type=submit]:hover {
 }
 
 form {
+  display: flex;
   max-width: 30em;
   flex-flow: row wrap;
   justify-content: space-between;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-end; 
+  align-items: center;
 }
 
 form input,

@@ -42,18 +42,7 @@ public class TodoItemController {
   @PostMapping("/submitItem")
   public String handleSubmit(TodoItem item, RedirectAttributes redirectAttributes) {
 
-    String status = Constants.ADD_SUCCESS_STATUS;
-
-    if ( todoItemService.getItem(item.getId()) == null && todoItemService.isNotPast(item.getDueDate()) ) {
-      todoItemService.saveItem(item);
-      System.out.println("Item added: " + todoItemService.getItem(item.getId()));
-    } else if ( todoItemService.getItem(item.getId()) != null && todoItemService.isNotPast(item.getDueDate()) ) {
-      todoItemService.saveItem(item);
-      status = Constants.UPDATE_SUCCESS_STATUS;
-      System.out.println("Item updated: " + todoItemService.getItem(item.getId()));
-    } else {
-      status = Constants.FAILED_STATUS;
-    }
+    String status = todoItemService.saveOrUpdateItem(item);
 
     redirectAttributes.addFlashAttribute("status", status);
     return "redirect:/todolist";
@@ -61,19 +50,9 @@ public class TodoItemController {
 
   @PostMapping("/markComplete")
   public String handleItemComplete(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
-    TodoItem existingItem = todoItemService.getItem(id);
-    if (existingItem != null && !existingItem.isCompleted()) {
-      existingItem.setCompleted(true);
-      todoItemService.saveItem(existingItem);
-      redirectAttributes.addFlashAttribute("status", Constants.COMPLETION_SUCCESS);
-    } else if (existingItem != null) {
-      existingItem.setCompleted(false);
-      todoItemService.saveItem(existingItem);
-      redirectAttributes.addFlashAttribute("status", Constants.COMPLETION_REMOVED);
-    } else {
-      redirectAttributes.addFlashAttribute("status", Constants.FAILED_STATUS);
-    }
+    String status = todoItemService.markComplete(id);
 
+    redirectAttributes.addFlashAttribute("status", status);
     return "redirect:/todolist";
   }
 

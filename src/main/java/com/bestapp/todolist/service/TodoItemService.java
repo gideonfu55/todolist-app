@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.bestapp.todolist.POJO.TodoItem;
-import com.bestapp.todolist.exception.ItemNotFoundException;
+import com.bestapp.todolist.constants.Constants;
 import com.bestapp.todolist.repository.TodoItemRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,28 +20,58 @@ public class TodoItemService {
 
   TodoItemRepository todoItemRepository;
   
-  // CRUD Methods:
-  public TodoItem getItem(Long id) {
-    if (id == null) {
-      return null;
+  /*
+   * ============
+   * CRUD Methods
+   * ============
+   */
+
+  // Create Or Update:
+  public String saveOrUpdateItem(TodoItem item) {
+    String status = Constants.FAILED_STATUS;
+    if (!isNotPast(item.getDueDate())) {
+      return status;
     }
+
+    if (getItem(item.getId()) == null) {
+      status = Constants.ADD_SUCCESS_STATUS;
+    } else {
+      status = Constants.UPDATE_SUCCESS_STATUS;
+    }
+    
+    todoItemRepository.save(item);
+    return status;
+  }
+
+  // Retrieve:
+  public TodoItem getItem(Long id) {
+    if (id == null) return null;
     Optional<TodoItem> item = todoItemRepository.findById(id);
     return unwrapItem(item, id);
   }
 
-    public void saveItem(TodoItem item) {
-    if (!isNotPast(item.getDueDate())) {
-      return;
-    }
-    todoItemRepository.save(item);
+  public List<TodoItem> getItems() {
+    return todoItemRepository.findAll();
   }
-
+  
+  // Delete:
   public void deleteItem(Long id) {
     todoItemRepository.deleteById(id);
   }
 
-  public List<TodoItem> getItems() {
-    return todoItemRepository.findAll();
+  // Mark Complete:
+  public String markComplete(Long id) {
+    TodoItem existingItem = getItem(id);
+    String status = Constants.COMPLETION_SUCCESS;
+    if (!existingItem.isCompleted()) {
+      existingItem.setCompleted(true);
+    } else {
+      existingItem.setCompleted(false);
+      status = Constants.COMPLETION_REMOVED;
+    }
+
+    todoItemRepository.save(existingItem);
+    return status;
   }
 
   /**
@@ -58,7 +88,7 @@ public class TodoItemService {
     if (entity.isPresent())
       return entity.get();
     else {
-      throw new ItemNotFoundException(id);
+      return null;
     }
   }
 

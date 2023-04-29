@@ -31,7 +31,7 @@
       <strong>You have completed this item!</strong>
     </div>
     <div class="alert success" th:case="'Completion Removed'">
-      <strong>This item has been reverted to incomplete.</strong>
+      <strong>This item has been returned to incomplete.</strong>
     </div>
   </div>
   
@@ -43,8 +43,8 @@
         <th>Description</th>
         <th>Target Date</th>
         <th>Completed</th>
-        <th> </th>
-        <th> </th>
+        <th></th>
+        <th></th>
       </tr>
       <tr th:each=="item: ${items}">
         <td th:text="${item.category}"></th>
