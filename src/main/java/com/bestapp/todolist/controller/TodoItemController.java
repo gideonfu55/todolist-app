@@ -58,9 +58,8 @@ public class TodoItemController {
 
   @PostMapping("/delete")
   public String deleteItem(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
-    String status = Constants.DELETE_SUCCESS;
     todoItemService.deleteItem(id);
-    redirectAttributes.addFlashAttribute("status", status);
+    redirectAttributes.addFlashAttribute("status", Constants.DELETE_SUCCESS);
     return "redirect:/todolist";
   }
 
