@@ -1,11 +1,11 @@
 body {
-  font-family: Arial, Helvetica, sans-serif; 
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ddd;
 }
 
 .container {
   display: flex;
   justify-content: center;
-  background-color: #ddd;
 }
 
 table {
