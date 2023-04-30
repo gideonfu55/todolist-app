@@ -59,7 +59,7 @@ public class TodoItemService {
     todoItemRepository.deleteById(id);
   }
 
-  // Mark Complete:
+  // Add and Remove Complete:
   public String markComplete(Long id) {
     TodoItem existingItem = getItem(id);
     String status = Constants.COMPLETION_SUCCESS;
@@ -68,6 +68,10 @@ public class TodoItemService {
     } else {
       existingItem.setCompleted(false);
       status = Constants.COMPLETION_REMOVED;
+    }
+
+    if (!isNotPast(existingItem.getDueDate())) {
+      existingItem.setDueDate(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
     }
 
     todoItemRepository.save(existingItem);
