@@ -44,8 +44,7 @@ public class TodoItemController {
   @PostMapping("/submitItem")
   public String handleSubmit(@Valid TodoItem item, BindingResult result, RedirectAttributes redirectAttributes) {
     if (result.hasErrors()) {
-      redirectAttributes.addFlashAttribute("item", item);
-      redirectAttributes.addFlashAttribute("error", result);
+      redirectAttributes.addFlashAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
       return "redirect:/";
     }
 

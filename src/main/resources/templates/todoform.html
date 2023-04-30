@@ -14,9 +14,7 @@
     <a th:href="@{/todolist}">TODO List</a>
   </div>
 
-  <div th:name="${error}" class="alertBox">
-    <div class="validationError" th:error="*{dueDate}"></div>
-  </div>
+  <div th:text="${error}" class="validationError"> </div>
 
   <center>
     <div class="container">
@@ -37,7 +35,7 @@
         <textarea th:field="*{description}"></textarea>
 
         <label>Target Date</label>
-        <p class="validationError" th:errors="*{dueDate}"> </p>
+        <!-- <p class="validationError" th:errors="*{dueDate}"> </p> -->
         <input type="date" th:field="*{dueDate}" style="color: black" required>
 
         <button type="submit">Add or Update Item</button>
