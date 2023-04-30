@@ -112,5 +112,9 @@ html {
   background-color: red;
   color: white;
 }
+
+.validationError {
+  color: red;
+}
   
     

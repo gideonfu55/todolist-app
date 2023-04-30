@@ -3,6 +3,8 @@ package com.bestapp.todolist.POJO;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.bestapp.todolist.validation.DateNotPast;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +38,7 @@ public class TodoItem {
   @Column(name = "description")
   private String description;
 
+  @DateNotPast(message = "Due date must not be in the past.")
   @Column(name = "due_date", nullable = false)
   @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")

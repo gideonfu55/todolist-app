@@ -103,7 +103,7 @@ public class TodoItemService {
    * @param date
    * @return
    * 
-   * - Check if provided date is before the current date. Return false if not.
+   * - Check if provided date is after the current date and return true if it is. Return false if not.
    * 
    */
   public boolean isNotPast(Date date) {
@@ -111,7 +111,7 @@ public class TodoItemService {
     LocalDate inputDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     // Get the current date
     LocalDate currentDate = LocalDate.now();
-    // Check if inputDate is on or after currentDate
+    // Check if inputDate is not in the past and return true, false if otherwise.
     return !inputDate.isBefore(currentDate);
   }
 

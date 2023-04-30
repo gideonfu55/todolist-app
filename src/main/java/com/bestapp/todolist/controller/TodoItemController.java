@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,6 +15,7 @@ import com.bestapp.todolist.POJO.TodoItem;
 import com.bestapp.todolist.constants.Constants;
 import com.bestapp.todolist.service.TodoItemService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -40,7 +43,12 @@ public class TodoItemController {
   }
 
   @PostMapping("/submitItem")
-  public String handleSubmit(TodoItem item, RedirectAttributes redirectAttributes) {
+  public String handleSubmit(@Valid TodoItem item, BindingResult result, RedirectAttributes redirectAttributes) {
+    if (result.hasErrors()) {
+      redirectAttributes.addFlashAttribute("item", item);
+      redirectAttributes.addFlashAttribute("error", result);
+      return "redirect:/";
+    }
 
     String status = todoItemService.saveOrUpdateItem(item);
 
