@@ -95,7 +95,7 @@ table tbody td[type=currency]:before {
 }
 
 .topnav a.active {
-  background-color: green;
+  background-color: red;
   color: white;
 }
   
