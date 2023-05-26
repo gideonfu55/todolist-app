@@ -6,6 +6,6 @@
 - Added feature: allow user to update completion status of item in DB by checking/unchecking checkbox for this object field.
 - Add custom form validation for due date and error message when user enters a past date.
 
-## Required Changes
+## Required Improvements
 
 - Sort the list according to criteria or ascending/descending date.
